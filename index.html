@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Özcan Hayvancılık</title>
+
+<!-- FONT AWESOME + FONTS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Reset ── */
+.ozcan-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
+.ozcan-wrap { font-family: 'Inter', sans-serif; color: #1a1a1a; line-height: 1.6; }
+
+/* ── CSS Değişkenleri ── */
+.ozcan-wrap {
+    --primary: #2d5016;
+    --primary-light: #4a7c2c;
+    --accent: #f5a623;
+    --accent-dark: #d4840a;
+    --bg-light: #fafafa;
+    --bg-white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-gray: #666666;
+    --border: #e5e5e5;
+}
+
+/* ════════════════════════════════
+   ELEMENTOR BRANDING GİZLE
+════════════════════════════════ */
+#elementor-editor-wrapper-v2 .elementor-editor-header,
+.elementor-panel-footer-sub-menu-item,
+.elementor-panel-footer-tool,
+#elementor-mode-switcher,
+.elementor-panel-footer-sub-menu-wrapper {
+    display: none !important;
+}
+
+/* Footer otomatik copyright'ı gizle */
+.elementor-widget-theme-site-title,
+.site-info,
+.wp-block-post-date,
+footer .elementor-widget-heading:last-child {
+    display: none !important;
+}
+
+/* ════════════════════════════════
+   NAVBAR (Sticky) - GENİŞLETİLMİŞ
+════════════════════════════════ */
+.oz-navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    transition: all 0.3s ease;
+}
+
+.oz-navbar.scrolled {
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    padding: 14px 0;
+}
+
+.oz-nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+/* ── LOGO (SADE & PROFESYONEL) ── */
+.oz-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none !important;
+}
+
+/* Logo görseli */
+.oz-nav-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+/* Logo yazısı */
+.oz-nav-logo span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+}
+
+/* NAV LİNKLER */
+.oz-nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+.oz-nav-links a {
+    color: var(--text-dark); font-weight: 500; font-size: 14px;
+    text-decoration: none !important;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.oz-nav-links a::after {
+    display: none;
+}
+
+.oz-nav-links a:hover { color: var(--accent); }
+
+.oz-nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    padding: 10px 22px; border-radius: 8px;
+    font-weight: 600; font-size: 14px;
+    text-decoration: none !important;
+    transition: all 0.2s;
+}
+
+.oz-nav-cta:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
+    color: #fff;
+}
+
+/* ── MOBİL MENÜ TOGGLE BUTONU ── */
+.oz-nav-toggle {
+    display: none; 
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 20px; 
+    color: var(--primary); 
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: all 0.2s;
+}
+
+.oz-nav-toggle:hover {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ── MOBİL MENÜ ── */
+.oz-mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 9998;
+}
+
+.oz-mobile-menu.open {
+    display: flex;
+}
+
+.oz-mobile-menu a {
+    color: var(--text-dark);
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.oz-mobile-menu a:hover {
+    background: rgba(245, 166, 35, 0.1);
+    color: var(--accent-dark);
+}
+
+.oz-mobile-menu .oz-mob-cta {
+    background: var(--accent);
+    color: #fff !important;
+    font-weight: 700;
+    margin-top: 8px;
+    justify-content: center;
+}
+
+.oz-mobile-menu .oz-mob-cta:hover {
+    background: var(--accent-dark);
+}
+
+/* ════════════════════════════════
+   HERO
+════════════════════════════════ */
+.oz-hero {
+    margin-top: 75px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 80px 0 70px;
+}
+
+.oz-hero-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 50px; align-items: center;
+}
+
+.oz-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    color: var(--accent-dark); font-size: 11px; font-weight: 700;
+    padding: 6px 14px; border-radius: 50px; margin-bottom: 18px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+.oz-hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(34px, 4.5vw, 56px);
+    font-weight: 900; color: var(--text-dark); line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.oz-hero h1 .highlight {
+    color: var(--accent); position: relative;
+    display: inline-block;
+}
+
+.oz-hero-desc {
+    font-size: 16px; color: var(--text-gray);
+    line-height: 1.7; margin-bottom: 32px;
+    max-width: 520px;
+}
+
+.oz-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.oz-btn-wa,
+.oz-btn-call {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 26px; border-radius: 10px;
+    font-weight: 700; font-size: 15px;
+    text-decoration: none !important;
+    transition: all 0.25s;
+    border: none;
+}
+
+.oz-btn-wa { background: #25d366; color: #fff !important; }
+.oz-btn-wa:hover {
+    background: #1eb358;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35);
+    color: #fff !important;
+}
+
+.oz-btn-call { background: var(--primary); color: #fff !important; }
+.oz-btn-call:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(45, 80, 22, 0.35);
+    color: #fff !important;
+}
+
+/* ── Stat Cards ── */
+.oz-stats { display: flex; flex-direction: column; gap: 12px; }
+
+.oz-stat {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 24px;
+    display: flex; align-items: center; gap: 16px;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.oz-stat:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border-color: var(--accent);
+}
+
+.oz-stat-ico {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.15), rgba(245, 166, 35, 0.05));
+    display: grid; place-items: center;
+    font-size: 20px; color: var(--accent);
+    flex-shrink: 0;
+}
+
+.oz-stat h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px; color: var(--text-dark);
+    line-height: 1; font-weight: 800;
+}
+
+.oz-stat p {
+    font-size: 13px; color: var(--text-gray);
+    margin-top: 4px; font-weight: 500;
+}
+
+/* ════════════════════════════════
+   CAROUSEL
+════════════════════════════════ */
+.oz-carousel-section {
+    background: var(--bg-light); padding: 80px 0;
+}
+
+.oz-section-head { text-align: center; margin-bottom: 48px; }
+
+.oz-label {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px;
+}
+
+.oz-section-head h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(28px, 3.5vw, 40px); font-weight: 800;
+    color: var(--primary); line-height: 1.2;
+}
+
+.oz-track-wrap {
+    overflow: hidden; position: relative;
+    padding: 10px 0 20px;
+}
+
+.oz-track {
+    display: flex; gap: 20px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.oz-slide {
+    flex: 0 0 calc(33.333% - 14px);
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px 26px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s;
+}
+
+.oz-slide::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s;
+}
+
+.oz-slide:hover {
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.oz-slide:hover::after { transform: scaleX(1); }
+
+.oz-slide-ico {
+    width: 54px; height: 54px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(74, 124, 44, 0.1), rgba(74, 124, 44, 0.05));
+    display: grid; place-items: center;
+    font-size: 22px; color: var(--primary-light);
+    margin-bottom: 18px;
+}
+
+.oz-slide h3 {
+    font-size: 17px; font-weight: 700; color: var(--primary);
+    margin-bottom: 10px; font-family: 'Poppins', sans-serif;
+}
+
+.oz-slide p {
+    font-size: 14px; color: var(--text-gray);
+    line-height: 1.65;
+}
+
+.oz-carousel-controls {
+    display: flex; justify-content: center; align-items: center;
+    gap: 14px; margin-top: 32px;
+}
+
+.oz-arrow {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 2px solid var(--border); background: #fff;
+    display: grid; place-items: center; cursor: pointer;
+    font-size: 14px; color: var(--primary);
+    transition: all 0.2s;
+}
+
+.oz-arrow:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.oz-dots { display: flex; gap: 7px; }
+
+.oz-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); cursor: pointer;
+    transition: all 0.25s;
+}
+
+.oz-dot.active {
+    background: var(--accent);
+    width: 24px; border-radius: 4px;
+}
+
+/* ════════════════════════════════
+   HAKKIMIZDA
+════════════════════════════════ */
+.oz-about { background: #fff; padding: 80px 0; }
+
+.oz-about-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+}
+
+.oz-about-visual { position: relative; }
+
+.oz-about-box {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 18px; padding: 50px 36px;
+    text-align: center; position: relative;
+    overflow: hidden;
+}
+
+.oz-about-box::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: rgba(245, 166, 35, 0.15);
+}
+
+.oz-about-box .big-ico {
+    font-size: 72px; color: rgba(255,255,255,0.9);
+    display: block; margin-bottom: 12px;
+    position: relative; z-index: 1;
+}
+
+.oz-about-box p {
+    color: rgba(255,255,255,0.8);
+    font-size: 14px; position: relative; z-index: 1;
+}
+
+.oz-trust {
+    position: absolute; bottom: -16px; right: -16px;
+    background: var(--accent); color: #fff;
+    border-radius: 12px; padding: 14px 18px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(245, 166, 35, 0.4);
+}
+
+.oz-trust strong {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px; font-weight: 800;
+}
+
+.oz-trust span { font-size: 11px; opacity: 0.9; }
+
+.oz-about-text .oz-label { display: block; }
+
+.oz-about-text h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(26px, 3vw, 38px); font-weight: 800;
+    color: var(--primary); line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.oz-about-text p {
+    font-size: 15px; color: var(--text-gray);
+    line-height: 1.75; margin-bottom: 14px;
+}
+
+.oz-checks { display: flex; flex-direction: column; gap: 11px; margin-top: 22px; }
+
+.oz-check {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; font-weight: 500;
+    color: var(--text-dark);
+}
+
+.oz-check i { color: var(--primary-light); font-size: 14px; width: 16px; }
+
+/* ════════════════════════════════
+   NEDEN BİZ
+════════════════════════════════ */
+.oz-why {
+    background: linear-gradient(160deg, #0e2207 0%, #1b3a0e 45%, #0f2a08 100%);
+    padding: 80px 0;
+    position: relative; overflow: hidden;
+}
+
+.oz-why::before {
+    content: ''; position: absolute; left: -180px; bottom: -180px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.1) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.oz-why .oz-section-head h2 { color: #fff; }
+.oz-why .oz-label { color: var(--accent); }
+.oz-why .oz-section-head p {
+    color: rgba(255,255,255,0.65);
+    font-size: 15px; margin-top: 8px;
+}
+
+.oz-why-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px; position: relative; z-index: 1;
+}
+
+.oz-why-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 30px 22px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+}
+
+.oz-why-card::before {
+    content: ''; position: absolute; bottom: -25px; right: -25px;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: rgba(245, 166, 35, 0.08);
+    transition: all 0.3s;
+}
+
+.oz-why-card:hover {
+    background: linear-gradient(145deg, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.07) 100%);
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.oz-why-card:hover::before { width: 130px; height: 130px; }
+
+.oz-why-ico {
+    width: 50px; height: 50px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.25), rgba(245, 166, 35, 0.12));
+    border: 1px solid rgba(245, 166, 35, 0.25);
+    display: grid; place-items: center;
+    font-size: 20px; color: var(--accent);
+    margin-bottom: 18px;
+}
+
+.oz-why-card h3 {
+    font-size: 16px; font-weight: 700; color: #fff;
+    margin-bottom: 8px; font-family: 'Poppins', sans-serif;
+}
+
+.oz-why-card p {
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+}
+
+/* ════════════════════════════════
+   TESTİMONİALS
+════════════════════════════════ */
+.oz-testi { background: var(--bg-light); padding: 80px 0; }
+.oz-testi .oz-section-head h2 { color: var(--primary); }
+
+.oz-testi-track-wrap { overflow: hidden; padding: 10px 0 20px; }
+
+.oz-testi-track {
+    display: flex; gap: 20px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.oz-tcard {
+    flex: 0 0 calc(50% - 10px);
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px 28px;
+    position: relative;
+}
+
+.oz-tcard::before {
+    content: '\201C';
+    font-family: 'Poppins', sans-serif;
+    font-size: 70px; color: rgba(245, 166, 35, 0.12);
+    position: absolute; top: 8px; left: 20px;
+    line-height: 1;
+}
+
+.oz-stars { color: var(--accent); font-size: 12px; margin-bottom: 12px; }
+
+.oz-tcard blockquote {
+    font-size: 14px; color: var(--text-gray);
+    line-height: 1.7; margin-bottom: 18px;
+    font-style: italic;
+}
+
+.oz-tcard-author { display: flex; align-items: center; gap: 11px; }
+
+.oz-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: grid; place-items: center;
+    font-size: 15px; color: rgba(255,255,255,0.9);
+    flex-shrink: 0;
+}
+
+.oz-tcard-author h4 { font-size: 14px; font-weight: 600; color: var(--primary); }
+.oz-tcard-author span { font-size: 12px; color: var(--text-gray); }
+
+/* ════════════════════════════════
+   İLETİŞİM + YENİ KONUM BÖLÜMÜ
+════════════════════════════════ */
+.oz-contact { background: #fff; padding: 80px 0; }
+
+.oz-contact-grid {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 32px; align-items: start;
+}
+
+.oz-cinfo {
+    background: linear-gradient(145deg, #0e2207 0%, #1b3a0e 45%, #0f2a08 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #fff;
+    border-radius: 18px; padding: 40px 32px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+}
+
+.oz-cinfo h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px; color: #fff;
+    margin-bottom: 28px; font-weight: 800;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.oz-irow { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 22px; }
+
+.oz-iico {
+    width: 46px; height: 46px; border-radius: 11px;
+    flex-shrink: 0; display: grid; place-items: center;
+    font-size: 17px;
+}
+
+.oz-iico.ph { background: rgba(255,255,255,0.12); color: #a8e890; border: 1px solid rgba(168, 232, 144, 0.3); }
+.oz-iico.wa { background: rgba(37, 211, 102, 0.25); color: #4ddb85; border: 1px solid rgba(37, 211, 102, 0.35); }
+.oz-iico.loc { background: rgba(245, 166, 35, 0.25); color: #f5b942; border: 1px solid rgba(245, 166, 35, 0.4); }
+
+.oz-irow h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px; font-weight: 600; }
+.oz-irow p { font-size: 16px; font-weight: 700; color: #fff; line-height: 1.4; }
+
+.oz-wa-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #25d366, #1db954);
+    color: #fff !important; text-decoration: none !important;
+    padding: 10px 20px; border-radius: 9px;
+    font-weight: 700; font-size: 13px;
+    margin-top: 8px; transition: all 0.25s;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+}
+
+.oz-wa-btn:hover {
+    background: linear-gradient(135deg, #1eb358, #17a348);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4);
+    color: #fff !important;
+}
+
+.oz-hours {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 20px;
+    margin-top: 24px;
+}
+
+.oz-hours h4 {
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.08em; color: rgba(255,255,255,0.6);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px; font-weight: 700;
+}
+
+.oz-hrow { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 7px; }
+.oz-hrow span { color: rgba(255,255,255,0.75); }
+.oz-hrow strong { color: #fff; font-weight: 700; }
+.oz-hrow strong.kapali { color: rgba(255,255,255,0.35); }
+
+.oz-form-wrap {
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 18px; padding: 40px 36px;
+}
+
+.oz-form-wrap h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px; color: var(--primary);
+    margin-bottom: 24px; font-weight: 800;
+}
+
+.oz-frow { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+
+.oz-fg { margin-bottom: 16px; }
+
+.oz-fg label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dark); margin-bottom: 6px; }
+
+.oz-fg input, .oz-fg textarea, .oz-fg select {
+    width: 100%; padding: 11px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-size: 14px; font-family: 'Inter', sans-serif;
+    color: var(--text-dark); background: #fff;
+    transition: border-color 0.2s;
+}
+
+.oz-fg input:focus, .oz-fg textarea:focus, .oz-fg select:focus {
+    outline: none; border-color: var(--primary-light); background: #fff;
+}
+
+.oz-fg textarea { resize: vertical; min-height: 110px; }
+
+.oz-submit {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    border: none; cursor: pointer;
+    padding: 12px 26px; border-radius: 9px;
+    font-weight: 700; font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.25s;
+}
+
+.oz-submit:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(245, 166, 35, 0.3);
+}
+
+/* ════════════════════════════════
+   YENİ KONUM BÖLÜMÜ
+════════════════════════════════ */
+.oz-location {
+    background: var(--bg-light);
+    padding: 80px 0;
+}
+
+.oz-loc-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+}
+
+.oz-loc-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.oz-loc-info {
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.oz-loc-icon {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
+}
+
+.oz-loc-text h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.oz-loc-text p {
+    font-size: 16px;
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+.oz-loc-text p strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.oz-map-embed {
+    width: 100%;
+    height: 450px;
+    border: none;
+    display: block;
+}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+.oz-footer {
+    background: linear-gradient(135deg, #060f03 0%, #0f1f07 50%, #0a1804 100%);
+    color: rgba(255,255,255,0.5);
+    padding: 36px 0; text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.oz-footer-logo { display: flex; align-items: center; justify-content: center; gap: 9px; margin-bottom: 8px; }
+.oz-footer-logo span { font-family: 'Poppins', sans-serif; font-size: 16px; color: #fff; font-weight: 700; }
+.oz-footer p { font-size: 12px; }
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 900px) {
+    .oz-nav-links { display: none; }
+    .oz-nav-toggle { display: block; }
+
+    .oz-hero-inner, .oz-about-grid, .oz-contact-grid {
+        grid-template-columns: 1fr; gap: 32px;
+    }
+
+    .oz-why-grid { grid-template-columns: 1fr 1fr; }
+
+    .oz-slide { flex: 0 0 calc(85% - 10px); }
+    .oz-tcard { flex: 0 0 calc(90% - 10px); }
+
+    .oz-frow { grid-template-columns: 1fr; }
+
+    .oz-hero-inner, .oz-about-grid, .oz-why-grid, .oz-contact-grid { padding: 0 20px; }
+    .oz-nav-inner { padding: 0 20px; }
+    
+    .oz-loc-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+        padding: 24px 20px;
+    }
+    
+    .oz-loc-icon {
+        margin: 0 auto;
+    }
+    
+    /* MOBİLDE KONUM BAŞLIĞINI GİZLE */
+    .oz-loc-text h3 {
+        display: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .oz-why-grid { grid-template-columns: 1fr; }
+    .oz-btns { flex-direction: column; }
+    .oz-nav-cta { display: none; }
+    
+    .oz-map-embed {
+        height: 350px;
+    }
+}
+
+/* ════════════════════════════════
+   FADE IN
+════════════════════════════════ */
+.oz-fi {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.oz-fi.oz-vis { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+
+<body>
+
+<!-- WRAPPER -->
+<div class="ozcan-wrap">
+
+<!-- NAVBAR -->
+<nav class="oz-navbar" id="ozNavbar">
+    <div class="oz-nav-inner">
+        <a href="#anasayfa" class="oz-nav-logo">
+            <img src="logo.jpeg">
+            <span>Özcan Hayvancılık</span>
+        </a>
+        <ul class="oz-nav-links">
+            <li><a href="#anasayfa">Anasayfa</a></li>
+            <li><a href="#hakkimizda">Hakkımızda</a></li>
+            <li><a href="#hizmetler">Hizmetler</a></li>
+            <li><a href="#neden-biz">Neden Biz</a></li>
+            <li><a href="#konum">Konum</a></li>
+            <li><a href="#iletisim">İletişim</a></li>
+        </ul>
+        <a href="tel:05434257071" class="oz-nav-cta">
+            <i class="fa-solid fa-phone"></i> Hemen Ara
+        </a>
+        <button class="oz-nav-toggle" id="ozNavToggle" aria-label="Menüyü aç">
+            <i class="fa-solid fa-bars" id="ozToggleIcon"></i>
+        </button>
+    </div>
+    <!-- MOBİL MENÜ -->
+    <div class="oz-mobile-menu" id="ozMobileMenu">
+        <a href="#anasayfa"><i class="fa-solid fa-house"></i> Anasayfa</a>
+        <a href="#hakkimizda"><i class="fa-solid fa-info-circle"></i> Hakkımızda</a>
+        <a href="#hizmetler"><i class="fa-solid fa-list"></i> Hizmetler</a>
+        <a href="#neden-biz"><i class="fa-solid fa-star"></i> Neden Biz</a>
+        <a href="#konum"><i class="fa-solid fa-map-marker-alt"></i> Konum</a>
+        <a href="#iletisim"><i class="fa-solid fa-envelope"></i> İletişim</a>
+        <a href="tel:05434257071" class="oz-mob-cta"><i class="fa-solid fa-phone"></i> Hemen Ara: 0543 425 70 71</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="anasayfa" class="oz-hero">
+    <div class="oz-hero-inner">
+        <div>
+            <h1>
+                Antalya'nın <span class="highlight">Güvenilir</span><br>
+                Hayvancılık Adresi
+            </h1>
+            <p class="oz-hero-desc">
+                Büyükbaş hayvan alım satımında yıllara dayanan tecrübemizle kaliteli, sağlıklı hayvan ve şeffaf fiyat garantisi sunuyoruz.
+            </p>
+            <div class="oz-btns">
+                <a href="https://wa.me/905434257071" target="_blank" class="oz-btn-wa">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Yazın
+                </a>
+                <a href="tel:05434257071" class="oz-btn-call">
+                    <i class="fa-solid fa-phone"></i> Hemen Ara
+                </a>
+            </div>
+        </div>
+        <div class="oz-stats">
+            <div class="oz-stat">
+                <div class="oz-stat-ico"><i class="fa-solid fa-award"></i></div>
+                <div>
+                    <h3>10+ Yıl</h3>
+                    <p>Sektör Deneyimi</p>
+                </div>
+            </div>
+            <div class="oz-stat">
+                <div class="oz-stat-ico"><i class="fa-solid fa-handshake"></i></div>
+                <div>
+                    <h3>500+</h3>
+                    <p>Memnun Çiftçi ve Besici</p>
+                </div>
+            </div>
+            <div class="oz-stat">
+                <div class="oz-stat-ico"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <h3>%100</h3>
+                    <p>Veteriner Onaylı Hayvanlar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HİZMETLER CAROUSEL -->
+<section id="hizmetler" class="oz-carousel-section">
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+        <div class="oz-section-head oz-fi">
+            <span class="oz-label">Hizmetlerimiz</span>
+            <h2>Size Nasıl Yardımcı Olabiliriz?</h2>
+        </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+        <div class="oz-track-wrap">
+            <div class="oz-track" id="svcTrack">
+                <div class="oz-slide">
+                    <div class="oz-slide-ico"><i class="fa-solid fa-cow"></i></div>
+                    <h3>Büyükbaş Alım Satım</h3>
+                    <p>Sığır, dana ve inek alım satımında profesyonel hizmet. Her bütçeye uygun, sağlıklı seçenekler.</p>
+                </div>
+                <div class="oz-slide">
+                    <div class="oz-slide-ico"><i class="fa-solid fa-stethoscope"></i></div>
+                    <h3>Veteriner Onaylı Tedarik</h3>
+                    <p>Tüm hayvanlarımız veteriner kontrolünden geçirilmiş, sağlık durumları belgeli olarak teslim edilir.</p>
+                </div>
+                <div class="oz-slide">
+                    <div class="oz-slide-ico"><i class="fa-solid fa-comments"></i></div>
+                    <h3>Çiftçi Danışmanlığı</h3>
+                    <p>Hayvancılık konusunda tecrübeli ekibimizden ücretsiz danışmanlık ve rehberlik desteği alın.</p>
+                </div>
+                <div class="oz-slide">
+                    <div class="oz-slide-ico"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Piyasa Fiyat Bilgisi</h3>
+                    <p>Güncel piyasa fiyatları ve trend takibiyle doğru zamanda doğru kararlar alın.</p>
+                </div>
+                <div class="oz-slide">
+                    <div class="oz-slide-ico"><i class="fa-solid fa-truck"></i></div>
+                    <h3>Nakliye & Teslimat</h3>
+                    <p>Anlaşmalı nakliyecilerle hayvanlarınızın güvenli ve stressiz taşınmasını sağlıyoruz.</p>
+                </div>
+            </div>
+        </div>
+        <div class="oz-carousel-controls">
+            <button class="oz-arrow" id="svcPrev"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="oz-dots" id="svcDots"></div>
+            <button class="oz-arrow" id="svcNext"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- HAKKIMIZDA -->
+<section id="hakkimizda" class="oz-about">
+    <div class="oz-about-grid">
+        <div class="oz-about-visual oz-fi">
+            <div class="oz-about-box">
+                <i class="fa-solid fa-cow big-ico"></i>
+                <p>Döşemealtı'nın güvenilir hayvancılık adresi</p>
+            </div>
+            <div class="oz-trust">
+                <strong><i class="fa-solid fa-certificate"></i></strong>
+                <span>Güvenilir Adres</span>
+            </div>
+        </div>
+        <div class="oz-about-text oz-fi">
+            <span class="oz-label">Hakkımızda</span>
+            <h2>Sektörde Güven,<br>Kalitede Fark</h2>
+            <p>07 Özcan Hayvancılık olarak Antalya'nın Döşemealtı bölgesinde büyükbaş hayvan alım satım sektöründe yıllara dayanan tecrübemizle hizmet veriyoruz.</p>
+            <p>Sığır, dana ve inek alım satımında uzmanlaşmış kadromuzla, bölgemizde çiftçilerin ve besicilerin güvenle tercih ettiği bir adres haline geldik.</p>
+            <div class="oz-checks">
+                <div class="oz-check"><i class="fa-solid fa-circle-check"></i> Veteriner kontrolünden geçmiş hayvanlar</div>
+                <div class="oz-check"><i class="fa-solid fa-circle-check"></i> Şeffaf ve adil fiyatlandırma politikası</div>
+                <div class="oz-check"><i class="fa-solid fa-circle-check"></i> Uzman ekipten ücretsiz danışmanlık</div>
+                <div class="oz-check"><i class="fa-solid fa-circle-check"></i> Güncel piyasa fiyat bilgisi</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NEDEN BİZ -->
+<section id="neden-biz" class="oz-why">
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+        <div class="oz-section-head oz-fi">
+            <span class="oz-label">Neden Biz?</span>
+            <h2>Farkımız Güven ve Kalitedir</h2>
+            <p>Müşterilerimizin bizi tekrar tercih etmesinin dört temel nedeni.</p>
+        </div>
+    </div>
+    <div class="oz-why-grid">
+        <div class="oz-why-card oz-fi">
+            <div class="oz-why-ico"><i class="fa-solid fa-medal"></i></div>
+            <h3>Yıllara Dayanan Tecrübe</h3>
+            <p>Sektördeki deneyim ve birikimimizle en doğru hayvanı en adil fiyata sunuyoruz.</p>
+        </div>
+        <div class="oz-why-card oz-fi">
+            <div class="oz-why-ico"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Kalite ve Güven</h3>
+            <p>Sağlıklı ve kaliteli hayvanlarla çalışıyor, güvenilirliği en büyük değer olarak görüyoruz.</p>
+        </div>
+        <div class="oz-why-card oz-fi">
+            <div class="oz-why-ico"><i class="fa-solid fa-tag"></i></div>
+            <h3>Şeffaf Fiyatlandırma</h3>
+            <p>Gizli ücret ve sürpriz fiyat yok. Adil fiyat politikamızla hep kazançlısınız.</p>
+        </div>
+        <div class="oz-why-card oz-fi">
+            <div class="oz-why-ico"><i class="fa-solid fa-heart-circle-check"></i></div>
+            <h3>Müşteri Memnuniyeti</h3>
+            <p>Uzun vadeli iş ortaklıkları kuruyoruz. Memnuniyetiniz her zaman önceliğimiz.</p>
+        </div>
+    </div>
+</section>
+
+<!-- MÜŞTERİ YORUMLARI -->
+<section class="oz-testi">
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+        <div class="oz-section-head oz-fi">
+            <span class="oz-label">Müşteri Yorumları</span>
+            <h2>Çiftçiler Ne Diyor?</h2>
+        </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+        <div class="oz-testi-track-wrap">
+            <div class="oz-testi-track" id="testiTrack">
+                <div class="oz-tcard">
+                    <div class="oz-stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <blockquote>Yıllardır Özcan Bey'den hayvan alıyorum. Fiyat adil, hayvanlar sağlıklı. Güvenle tavsiye ederim.</blockquote>
+                    <div class="oz-tcard-author">
+                        <div class="oz-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div><h4>Mehmet Y.</h4><span>Döşemealtı Çiftçisi</span></div>
+                    </div>
+                </div>
+                <div class="oz-tcard">
+                    <div class="oz-stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <blockquote>Veteriner onayı ve belgeli teslim çok güven verdi. Kurban bayramında da tercihim yine Özcan Hayvancılık oldu.</blockquote>
+                    <div class="oz-tcard-author">
+                        <div class="oz-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div><h4>Ali K.</h4><span>Antalya Besici</span></div>
+                    </div>
+                </div>
+                <div class="oz-tcard">
+                    <div class="oz-stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <blockquote>Piyasa bilgisi konusunda çok yardımcı oldular. Doğru zamanda doğru hayvanı aldım sayelerinde.</blockquote>
+                    <div class="oz-tcard-author">
+                        <div class="oz-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div><h4>Hasan T.</h4><span>Korkuteli Çiftçisi</span></div>
+                    </div>
+                </div>
+                <div class="oz-tcard">
+                    <div class="oz-stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <blockquote>Nakliye konusunda da destek aldım. Profesyonel, dürüst bir hizmet. Herkese tavsiye ederim.</blockquote>
+                    <div class="oz-tcard-author">
+                        <div class="oz-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div><h4>İbrahim S.</h4><span>Manavgat Besici</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="oz-carousel-controls">
+            <button class="oz-arrow" id="testiPrev"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="oz-dots" id="testiDots"></div>
+            <button class="oz-arrow" id="testiNext"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- YENİ KONUM BÖLÜMÜ -->
+<section id="konum" class="oz-location">
+    <div class="oz-loc-inner">
+        <div style="text-align: center; margin-bottom: 48px;" class="oz-fi">
+            <span class="oz-label">Konum</span>
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: clamp(28px, 3.5vw, 40px); font-weight: 800; color: var(--primary); line-height: 1.2;">Bizi Ziyaret Edin</h2>
+        </div>
+        <div class="oz-loc-card oz-fi">
+            <div class="oz-loc-info">
+                <div class="oz-loc-icon">
+                    <i class="fa-solid fa-map-marker-alt"></i>
+                </div>
+                <div class="oz-loc-text">
+                    <h3>07 Özcan Hayvancılık</h3>
+                    <p><strong>Adres:</strong> Karataş, Karataş sokak No: 65, 07190 Döşemealtı/Antalya</p>
+                    <p><strong>Telefon:</strong> 0543 425 70 71</p>
+                </div>
+            </div>
+            <iframe 
+                class="oz-map-embed"
+                src="https://www.google.com/maps?q=37.141417,30.626538&hl=tr&z=15&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="07 Özcan Hayvancılık Konumu">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- İLETİŞİM -->
+<section id="iletisim" class="oz-contact">
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px">
+        <div class="oz-section-head oz-fi">
+            <span class="oz-label">İletişim</span>
+            <h2 style="color:var(--primary)">Bize Ulaşın</h2>
+        </div>
+    </div>
+    <div class="oz-contact-grid">
+        <div class="oz-cinfo oz-fi">
+            <h3>İletişim Bilgileri</h3>
+            <div class="oz-irow">
+                <div class="oz-iico ph"><i class="fa-solid fa-phone"></i></div>
+                <div><h4>Telefon</h4><p>0543 425 70 71</p></div>
+            </div>
+            <div class="oz-irow">
+                <div class="oz-iico wa"><i class="fa-brands fa-whatsapp"></i></div>
+                <div>
+                    <h4>WhatsApp</h4>
+                    <p>0543 425 70 71</p>
+                    <a href="https://wa.me/905434257071" target="_blank" class="oz-wa-btn">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Yaz
+                    </a>
+                </div>
+            </div>
+            <div class="oz-irow">
+                <div class="oz-iico loc"><i class="fa-solid fa-location-dot"></i></div>
+                <div><h4>Adres</h4><p>Karataş, Karataş sokak No: 65<br>07190 Döşemealtı/Antalya</p></div>
+            </div>
+            <div class="oz-hours">
+                <h4><i class="fa-regular fa-clock"></i> Çalışma Saatleri</h4>
+                <div class="oz-hrow"><span>Pazartesi – Cumartesi</span><strong>08:00 – 18:00</strong></div>
+                <div class="oz-hrow"><span>Pazar</span><strong class="kapali">Kapalı</strong></div>
+            </div>
+        </div>
+        <div class="oz-form-wrap oz-fi">
+            <h3>Mesaj Gönderin</h3>
+            <div class="oz-frow">
+                <div class="oz-fg">
+                    <label>Ad Soyad *</label>
+                    <input type="text" placeholder="Adınız Soyadınız">
+                </div>
+                <div class="oz-fg">
+                    <label>Telefon *</label>
+                    <input type="tel" placeholder="05xx xxx xx xx">
+                </div>
+            </div>
+            <div class="oz-fg">
+                <label>E-posta</label>
+                <input type="email" placeholder="ornek@email.com">
+            </div>
+            <div class="oz-fg">
+                <label>Konu</label>
+                <select>
+                    <option value="">Seçiniz...</option>
+                    <option>Hayvan Satın Almak İstiyorum</option>
+                    <option>Hayvan Satmak İstiyorum</option>
+                    <option>Fiyat Bilgisi Almak İstiyorum</option>
+                    <option>Danışmanlık</option>
+                    <option>Diğer</option>
+                </select>
+            </div>
+            <div class="oz-fg">
+                <label>Mesaj *</label>
+                <textarea placeholder="Almak veya satmak istediğiniz hayvan hakkında bilgi verin..."></textarea>
+            </div>
+            <button class="oz-submit" id="ozSubmit">
+                <i class="fa-solid fa-paper-plane"></i> Mesaj Gönder
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="oz-footer">
+    <div class="oz-footer-logo">
+        <i class="fa-solid fa-cow" style="color:var(--accent);font-size:18px"></i>
+        <span>07 Özcan Hayvancılık</span>
+    </div>
+    <p>© 2026 07 Özcan Hayvancılık – Karataş, Döşemealtı, Antalya. Tüm hakları saklıdır.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+    /* ── Navbar Scroll Effect ── */
+    const navbar = document.getElementById('ozNavbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    /* ── MOBİL MENÜ TOGGLE ── */
+    const toggleBtn = document.getElementById('ozNavToggle');
+    const mobileMenu = document.getElementById('ozMobileMenu');
+    const toggleIcon = document.getElementById('ozToggleIcon');
+
+    toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = mobileMenu.classList.toggle('open');
+        toggleIcon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    });
+
+    // Menü linklerine tıklayınca kapat
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            toggleIcon.className = 'fa-solid fa-bars';
+        });
+    });
+
+    // Dışarı tıklayınca kapat
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target)) {
+            mobileMenu.classList.remove('open');
+            toggleIcon.className = 'fa-solid fa-bars';
+        }
+    });
+
+    /* ── Carousel Factory ── */
+    function makeCarousel(trackId, prevId, nextId, dotsId, visibleFn) {
+        const track = document.getElementById(trackId);
+        if (!track) return;
+        const slides = Array.from(track.children);
+        const dotsEl = document.getElementById(dotsId);
+        let cur = 0;
+
+        function total() { return Math.ceil(slides.length / visibleFn()); }
+
+        function buildDots() {
+            dotsEl.innerHTML = '';
+            for (let i = 0; i < total(); i++) {
+                const d = document.createElement('div');
+                d.className = 'oz-dot' + (i === cur ? ' active' : '');
+                d.onclick = () => go(i);
+                dotsEl.appendChild(d);
+            }
+        }
+
+        function go(idx) {
+            cur = Math.max(0, Math.min(idx, total() - 1));
+            const slideW = slides[0].getBoundingClientRect().width;
+            track.style.transform = `translateX(-${cur * visibleFn() * (slideW + 20)}px)`;
+            dotsEl.querySelectorAll('.oz-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === cur);
+            });
+        }
+
+        document.getElementById(prevId).onclick = () => go(cur - 1);
+        document.getElementById(nextId).onclick = () => go(cur + 1);
+
+        buildDots();
+        window.addEventListener('resize', () => { go(0); buildDots(); });
+
+        let startX = 0;
+        track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', e => {
+            const dx = startX - e.changedTouches[0].clientX;
+            if (Math.abs(dx) > 50) go(dx > 0 ? cur + 1 : cur - 1);
+        }, { passive: true });
+    }
+
+    makeCarousel('svcTrack', 'svcPrev', 'svcNext', 'svcDots',
+        () => window.innerWidth < 900 ? 1 : 3);
+    makeCarousel('testiTrack', 'testiPrev', 'testiNext', 'testiDots',
+        () => window.innerWidth < 760 ? 1 : 2);
+
+    /* ── Scroll Fade-in ── */
+    const io = new IntersectionObserver(entries => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('oz-vis'), i * 60);
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.oz-fi').forEach(el => io.observe(el));
+
+    /* ── Form Submit ── */
+    const submitBtn = document.getElementById('ozSubmit');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Mesajınız alındı! En kısa sürede dönüş yapacağız. 📞');
+        });
+    }
+
+    /* ── Smooth Scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.getBoundingClientRect().top + window.pageYOffset - 70,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
