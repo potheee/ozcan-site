@@ -345,6 +345,31 @@
 }
 .oz-kurban-head-text .oz-btns { margin-top: 24px; }
 
+.oz-kurban-types {
+    display: flex; flex-direction: column; gap: 14px;
+}
+
+.oz-ktype {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex; align-items: center; gap: 14px;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.oz-ktype:hover { transform: translateX(5px); border-color: #b8290a; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.oz-ktype-ico {
+    width: 46px; height: 46px; border-radius: 11px;
+    background: linear-gradient(135deg, rgba(184,41,10,0.12), rgba(184,41,10,0.06));
+    display: grid; place-items: center;
+    font-size: 20px; color: #b8290a;
+    flex-shrink: 0;
+}
+.oz-ktype h4 { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 2px; }
+.oz-ktype p { font-size: 13px; color: var(--text-gray); }
+
 /* ── FotoĞraf Carousel ── */
 .oz-photo-section {
     background: #fff;
@@ -544,7 +569,7 @@
     padding: 11px 22px; border-radius: 9px;
     font-weight: 700; font-size: 13px;
     text-decoration: none !important;
-    transition: all 0.25px;
+    transition: all 0.25s;
 }
 .oz-cat-cta:hover { background: #1eb358; transform: translateY(-2px); color:#fff !important; }
 
@@ -821,7 +846,6 @@
 </section>
 
 <!-- KURBANLIK ANA BÖLÜM -->
-<!-- KURBANLIK ANA BÖLÜM -->
 <section id="kurbanlık" class="oz-kurban">
     <div class="oz-kurban-inner">
         <div class="oz-kurban-head oz-fi">
@@ -843,11 +867,7 @@
                     </a>
                 </div>
             </div>
-
-            <!-- TÜM KARTLAR BURADA TOPLANDI -->
             <div class="oz-kurban-types">
-
-                <!-- HAYVAN TÜRLERİ -->
                 <div class="oz-ktype">
                     <div class="oz-ktype-ico"><i class="fa-solid fa-cow"></i></div>
                     <div>
@@ -855,7 +875,6 @@
                         <p>Dişi büyükbaş, orta & büyük boy seçenekleri. 7 hisseye kadar ortaklık imkânı.</p>
                     </div>
                 </div>
-
                 <div class="oz-ktype">
                     <div class="oz-ktype-ico"><i class="fa-solid fa-drumstick-bite"></i></div>
                     <div>
@@ -863,7 +882,6 @@
                         <p>1–2 yaşlık genç, sağlıklı danalar. Küçük aileler için ideal boyut ve ağırlık.</p>
                     </div>
                 </div>
-
                 <div class="oz-ktype">
                     <div class="oz-ktype-ico"><i class="fa-solid fa-shield-halved"></i></div>
                     <div>
@@ -871,7 +889,6 @@
                         <p>Büyük boy, yüksek kilolu erkek büyükbaş. Topluluk kurbanlarına özel seçenekler.</p>
                     </div>
                 </div>
-
                 <div class="oz-ktype">
                     <div class="oz-ktype-ico"><i class="fa-solid fa-heart"></i></div>
                     <div>
@@ -879,46 +896,36 @@
                         <p>Koyun, keçi ve adak hayvanları. Her bütçeye uygun, veteriner belgeli, sağlık garantili.</p>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- KESİM HİZMETLERİ (TAŞINDI) -->
-                <div class="oz-ktype">
-                    <div class="oz-ktype-ico"><i class="fa-solid fa-moon"></i></div>
-                    <div>
-                        <h4>Helal Kesim</h4>
-                        <p>Tüm kesim işlemlerimiz dini kurallara uygun, helal standartlarında gerçekleştirilmektedir.</p>
-                    </div>
-                </div>
-
-                <div class="oz-ktype">
-                    <div class="oz-ktype-ico"><i class="fa-solid fa-scissors"></i></div>
-                    <div>
-                        <h4>Her Türlü Kesim Hizmeti</h4>
-                        <p>Büyükbaş ve küçükbaş hayvan kesim işlemleriniz için profesyonel ekibimiz hizmetinizdedir.</p>
-                    </div>
-                </div>
-
-                <div class="oz-ktype">
-                    <div class="oz-ktype-ico"><i class="fa-solid fa-box-open"></i></div>
-                    <div>
-                        <h4>Paketleme & Teslimat</h4>
-                        <p>Kesim sonrası temiz paketleme ve Antalya genelinde soğuk zincir teslimat imkânı mevcuttur.</p>
-                    </div>
-                </div>
-
-                <div class="oz-ktype">
-                    <div class="oz-ktype-ico"><i class="fa-solid fa-users"></i></div>
-                    <div>
-                        <h4>Toplu & Grup Kurbanı</h4>
-                        <p>Dernek, vakıf ve şirketlere özel toplu kurban organizasyonu. Tek noktadan tam hizmet.</p>
-                    </div>
-                </div>
-
+        <!-- KESIM KARTLARI -->
+        <div class="oz-kurban-feature-grid oz-fi">
+            <div class="oz-kfeat">
+                <div class="oz-kfeat-ico"><i class="fa-solid fa-moon"></i></div>
+                <h4>Helal Kesim</h4>
+                <p>Tüm kesim işlemlerimiz dini kurallara uygun, helal standartlarında gerçekleştirilmektedir.</p>
+            </div>
+            <div class="oz-kfeat">
+                <div class="oz-kfeat-ico"><i class="fa-solid fa-scissors"></i></div>
+                <h4>Her Türlü Kesim Hizmeti</h4>
+                <p>Büyükbaş ve küçükbaş hayvan kesim işlemleriniz için profesyonel ekibimiz hizmetinizdedir.</p>
+            </div>
+            <div class="oz-kfeat">
+                <div class="oz-kfeat-ico"><i class="fa-solid fa-box-open"></i></div>
+                <h4>Paketleme & Teslimat</h4>
+                <p>Kesim sonrası temiz paketleme ve Antalya genelinde soğuk zincir teslimat imkânı mevcuttur.</p>
+            </div>
+            <div class="oz-kfeat">
+                <div class="oz-kfeat-ico"><i class="fa-solid fa-users"></i></div>
+                <h4>Toplu & Grup Kurbanı</h4>
+                <p>Dernek, vakıf ve şirketlere özel toplu kurban organizasyonu. Tek noktadan tam hizmet.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FOTOĞRAF CAROUSEL -->
+     <!-- FOTOĞRAF CAROUSEL -->
 <section class="oz-photo-section">
     <div style="max-width:1200px;margin:0 auto;padding:0 40px">
         <div class="oz-section-head oz-fi">
@@ -953,7 +960,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="oz-photo-slide">
+                     <div class="oz-photo-slide">
                     <img src="pic-6.jpeg" alt="Küçükbaş koyun keçi kurbanlık Antalya" loading="lazy" style="object-position: top;">
                     <div class="oz-photo-overlay">
                         <div class="oz-photo-info">
@@ -1003,7 +1010,7 @@
                 </div>
             </div>
         </div>
-        <!-- NAV ARROWS -->
+                 <!-- NAV ARROWS -->
         <div class="oz-photo-nav">
             <button class="oz-photo-arrow" id="photoPrev"><i class="fa-solid fa-chevron-left"></i></button>
             <button class="oz-photo-arrow" id="photoNext"><i class="fa-solid fa-chevron-right"></i></button>
@@ -1012,14 +1019,14 @@
         <!-- DOTS -->
         <div class="oz-photo-dots" id="photoDots"></div>
 
-        <!-- THUMBNAILS – düzeltildi: pic-6.jpeg ve pic-7.jpeg -->
+        <!-- THUMBNAILS -->
         <div class="oz-photo-thumbs" id="photoThumbs">
             <div class="oz-photo-thumb active" data-idx="0"><img src="pic-2.jpg" alt="Kurbanlık 1"></div>
             <div class="oz-photo-thumb" data-idx="1"><img src="pic-3.jpg" alt="Kurbanlık 2"></div>
-            <div class="oz-photo-thumb" data-idx="2"><img src="pic-6.jpeg" alt="Kurbanlık 3"></div>
-            <div class="oz-photo-thumb" data-idx="3"><img src="pic-4.jpg" alt="Kurbanlık 4"></div>
-            <div class="oz-photo-thumb" data-idx="4"><img src="pic-5.jpg" alt="Kurbanlık 5"></div>
-            <div class="oz-photo-thumb" data-idx="5"><img src="pic-7.jpeg" alt="Kurbanlık 6"></div>
+            <div class="oz-photo-thumb" data-idx="2"><img src="pic-4.jpg" alt="Kurbanlık 3"></div>
+            <div class="oz-photo-thumb" data-idx="3"><img src="pic-5.jpg" alt="Kurbanlık 4"></div>
+            <div class="oz-photo-thumb" data-idx="4"><img src="pic-6.jpg" alt="Kurbanlık 5"></div>
+            <div class="oz-photo-thumb" data-idx="5"><img src="pic-7.jpg" alt="Kurbanlık 6"></div>
         </div>
     </div>
 </section>
@@ -1329,6 +1336,7 @@
         <span>07 Özcan Hayvancılık</span>
     </div>
     <p>© 2026 07 Özcan Hayvancılık – Karataş, Döşemealtı, Antalya. Tüm hakları saklıdır.</p>
+    <!-- SEO için gizli anahtar kelime alanı -->
     <p class="oz-footer-seo">
         Antalya kurbanlık | Kurbanlık inek Antalya | Kurbanlık dana Antalya | Adak kurbanlığı Antalya |
         Döşemealtı kurbanlık | Büyükbaş kurbanlık Antalya | Kurban bayramı Antalya | Kurbanlık boğa Antalya |
